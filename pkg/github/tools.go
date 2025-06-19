@@ -119,6 +119,11 @@ func DefaultToolsetGroup(readOnly bool, getClient GetClientFn, getGQLClient GetG
 			toolsets.NewServerTool(GetMe(getClient, t)),
 		)
 
+	issueTypes := toolsets.NewToolset("issue_types", "Issue types related tools, such as GitHub Copilot Issue Types").
+		AddReadTools(
+			toolsets.NewServerTool(ListIssueTypes(getClient, t)),
+		)
+
 	// Add toolsets to the group
 	tsg.AddToolset(contextTools)
 	tsg.AddToolset(repos)
@@ -129,6 +134,7 @@ func DefaultToolsetGroup(readOnly bool, getClient GetClientFn, getGQLClient GetG
 	tsg.AddToolset(secretProtection)
 	tsg.AddToolset(notifications)
 	tsg.AddToolset(experiments)
+	tsg.AddToolset(issueTypes)
 
 	return tsg
 }
